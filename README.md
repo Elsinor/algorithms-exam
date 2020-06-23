@@ -19,15 +19,15 @@ oppure ricompilare il jar, e infine eseguirlo.
   python3 prova_pratica.py Ex1 [<nome_file>]
 ```
 
-#### Algoritmo `Ex1`
+### Algoritmo `Ex1`
 - legge il file in input
-- costruisce il grafo orientato (`City`)
+- costruisce il grafo orientato e pesato (`City`)
 - costruisce l'albero dei cammini minimi con Dijkstra (versione con coda a priorità) effettuando una routine di rilassamento specifica per il quesito
 - costruisce il cammino a ritroso con l'ausilio dell'array `streetTo`
 - stampa il cammino
 - stampa i secondi necessari per raggiungere l'incrocio T partendo dall'incrocio S
 
-#### input
+#### Input
 L'input è un file di interi con la seguente struttura:
 
 ```
@@ -65,7 +65,9 @@ Viene aggiunta una costante booleana (`Consts.CAN_WAIT_IN_STREET_IF_TRAVEL_START
 
 -----
 
-#### Esercizio 2.
+### Esercizio 2.
+L'Esercizio 2 viene svolto nella classe `fabrizio.armango.Ex2`.
+La traccia chiede di trovare, dato un grafo orientato e pesato G con pesi numeri reali strettamente positivi e un valore reale positivo K, la lista delle coppie di vertici il cui cammino minimo ha un costo maggiore di K.
 
 #### Esecuzione
 E' possibile eseguire direttamente il file jar compilato
@@ -77,39 +79,98 @@ oppure ricompilare il jar, e infine eseguirlo.
   python3 prova_pratica.py Ex2 [<nome_file>]
 ```
 
+
+```
+// Esempio
+java -jar main.jar fabrizio.armango.Ex2 input/mediumEWD.txt
+// Insert K:
+1.4
+
+```
+
 #### Algoritmo `Ex2`
+- legge il file in input // O(E)
+- inizializza una lista `L` // costo costante
+- costruisce il grafo orientato e pesato `G` (`EdgeWeightedDigraph`)  // costo O(E)
+- per ogni nodo `s` in `G.V()`: // O(V)
+  - costruisce l'albero dei cammini minimi con `DijkstraSP` avente come root(o sorgente) `s` // costo E*log(V)
+  - per ogni nodo `v` in `G.V()`: // V
+    - se esiste il cammino minimo da `s` a `v`: // costo costante
+      - e se tale cammino ha costo strettamente maggiore di `K`: // costo costante
+        - aggiungi tale cammino alla lista `L` // costo costante
+
+Non considerando i costi costanti:
+```
+E+E+ V*(E*log(V) + V)
+2E + EV log(V) + V^2
+
+E*V*log(V) + V^2
+```
 
 
-#### input
+#### Input
+Seguendo lo standard di `algs4`:
+```
+|V|
+|E|
+v1 w1 c1
+v2 w2 c2
+....
+vn wn cn
+```
 
 #### Descrizione
+Il metodo statico `public static Stack<Iterable<DirectedEdge>> getShortestPathsWithCostGreaterThan(EdgeWeightedDigraph G, double K)` esegue l'algoritmo di DijkstraSP per ogni nodo dell'arco e restituisce uno Stack di cammini con costo maggiore al K specificato in input.
 
-##### Note
 -----
 
-#### Esercizio 3.
+### Esercizio 3.
+Questo esercizio esegue dei test sull'algoritmo dell'esercizio precedente (`Ex2`).
+Generando randomicamente dei grafi con un numero di vertici specificato dal quesito, eseguende l'esercizio 2 ed disegna un grafico.
+
+Le ascisse sono il numero di nodi.
+Le ordinate sono il numero degli archi il cui cammino minimo ha un costo maggiore di K.
+
 
 #### Esecuzione
 E' possibile eseguire direttamente il file jar compilato
 ```
-  java -jar main.jar fabrizio.armango.Ex3 [<nome_file>]
+  java -jar main.jar fabrizio.armango.Ex3
 ```
 oppure ricompilare il jar, e infine eseguirlo.
 ```
-  python3 prova_pratica.py Ex3 [<nome_file>]
+  python3 prova_pratica.py Ex3
 ```
+
 
 #### Algoritmo `Ex3`
 
+- inizializza un array per le ascisse
+- inizializza un array per le ordinate
+- per ogni grafo appartente alla famiglia
+```
+int V = (n + 1) * 25;
+int E = 2 * V * (int) Math.log(V);
+```
+`per n = {0, 1, 2, ...n - 1}`
 
-#### input
+  - calcola K come peso medio degli archi del grafo corrente
+  - calcola il numero richiesto degli archi il cui cammino minimo ha un costo maggiore di K (numShortestPaths).
+  - aggiungi (V,numShortestPaths) agli array.
+
+- disegna il grafico.
+
+
+#### Input
 
 #### Descrizione
+La classe `CustomGraph` è sottoclasse di `EdgeWeightedDigraph`, genera archi con pesi random e fornisce un metodo
+`averageWeight` per trovare il valore K.
 
-##### Note
 -----
 
-#### Esercizio 4.
+### Esercizio 4.
+Questo esercizio viene svolto nella classe `fabrizio.armango.Ex4`
 
 #### Esecuzione
 E' possibile eseguire direttamente il file jar compilato
@@ -124,7 +185,7 @@ oppure ricompilare il jar, e infine eseguirlo.
 #### Algoritmo `Ex4`
 
 
-#### input
+#### Input
 
 #### Descrizione
 
