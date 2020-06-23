@@ -170,7 +170,8 @@ La classe `CustomGraph` è sottoclasse di `EdgeWeightedDigraph`, genera archi co
 -----
 
 ### Esercizio 4.
-Questo esercizio viene svolto nella classe `fabrizio.armango.Ex4`
+Questo esercizio viene svolto nella classe `fabrizio.armango.Ex4`,
+dato un file in input, costruisce la tabella hash (`HashTable` è sottoclasse di `LinearProbingHashST`) con indirizzamento aperto e stampa il numero di tentativi
 
 #### Esecuzione
 E' possibile eseguire direttamente il file jar compilato
@@ -182,11 +183,15 @@ oppure ricompilare il jar, e infine eseguirlo.
   python3 prova_pratica.py Ex4 [<nome_file>]
 ```
 
-#### Algoritmo `Ex4`
+```
+// Esempio
+java -jar main.jar fabrizio.armango.Ex4 input/ex4_001.txt
+```
 
+#### Algoritmo `Ex4`
+- legge il file in input
+- costruisci l'hashtable con indirizzamento aperto e le due funzioni hash
+- stampa se la chiave cercata è stata trovata e con quanti tentativi.
 
 #### Input
-
-#### Descrizione
-
-##### Note
+Un file contentente una lista di interi.
